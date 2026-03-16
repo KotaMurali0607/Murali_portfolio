@@ -1,0 +1,448 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>  <span class="gradient-text">KOTA MURALI</span></title>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #050816;
+            color: #e5e7eb;
+            overflow-x: hidden;
+        }
+        
+        .gradient-text {
+            background: linear-gradient(90deg, #3b82f6, #8b5cf6, #ec4899);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        /* Prevent background blocking clicks */
+        canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+      /* NAV */
+nav{
+  position:fixed;
+  width:100%;
+  backdrop-filter:blur(12px);
+  background:rgba(10,15,30,0.7);
+  border-bottom:1px solid rgba(255,255,255,0.05);
+  z-index:100;
+}
+nav .container{
+  max-width:1200px;
+  margin:auto;
+  padding:18px 40px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+nav .links a{
+  margin-left:25px;
+  text-decoration:none;
+  color:#9ca3af;
+  transition:.3s;
+}
+nav .links a:hover{color:white;}
+
+.social{display:flex;gap:15px;}
+.icon{
+  width:38px;height:38px;
+  display:flex;align-items:center;justify-content:center;
+  border-radius:10px;
+  background:rgba(255,255,255,0.05);
+  transition:.3s;
+}
+.icon svg{width:18px;height:18px;fill:#9ca3af;}
+.icon:hover{
+  background:rgba(59,130,246,0.2);
+  transform:translateY(-3px);
+}
+.icon:hover svg{fill:#3b82f6;}
+
+.section{
+  max-width:1100px;
+  margin:auto;
+  padding:180px 40px;
+}
+.glass{
+  background:rgba(20,25,45,0.6);
+  backdrop-filter:blur(20px);
+  padding:50px;
+  border-radius:20px;
+  border:1px solid rgba(255,255,255,0.05);
+}
+h1{font-size:48px;margin-bottom:10px;}
+h2{margin-bottom:20px;}
+
+
+
+      /* Button style */
+.button-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 20px;
+    margin-top: 30px;
+}
+
+/* Only for Projects */
+.project-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    margin-top: 30px;
+}
+
+@media (max-width: 768px) {
+    .project-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+.button-card {
+    padding: 18px;
+    text-align: center;
+    border-radius: 14px;
+    background: linear-gradient(145deg, #0f172a, #111827);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    transition: 0.3s ease;
+}
+        
+
+        .button-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 0 20px rgba(59, 130, 246, 0.6);
+            background: rgba(59, 130, 246, 0.15);
+        }
+
+        footer {
+            text-align: center;
+            padding: 60px;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            color: #6b7280;
+        }
+        
+
+        .input-field {
+            width: 100%;
+            padding: 14px;
+            border-radius: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            background: rgba(255, 255, 255, 0.04);
+            color: white;
+            font-size: 14px;
+            outline: none;
+            transition: 0.3s;
+        }
+
+        .input-field:focus {
+            border: 1px solid #3b82f6;
+            box-shadow: 0 0 12px rgba(59, 130, 246, 0.5);
+        }
+
+        textarea {
+            resize: none;
+        }
+
+        .submit-btn {
+            padding: 14px;
+            border: none;
+            border-radius: 10px;
+            background: #3b82f6;
+            color: white;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .submit-btn:hover {
+            background: #2563eb;
+            box-shadow: 0 0 20px rgba(59, 130, 246, 0.6);
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav>
+        <div class="container">
+            <div><strong>Murali.dev</strong></div>
+
+            <div class="links">
+                <a href="#about">About</a>
+                <a href="#skills">Skills</a>
+                <a href="#projects">Projects</a>
+                <a href="#interests">Interests</a>
+                <a href="#certifications">Certifications</a>
+                <a href="#contact">Contact</a>
+            </div>
+
+            <div class="social">
+
+
+                <!-- GitHub -->
+                <a href="https://github.com/KotaMurali0607" target="_blank" rel="noopener noreferrer" class="icon">
+                    <svg viewBox="0 0 24 24">
+                        <path fill="currentColor"
+                            d="M12 0C5.37 0 0 5.37 0 12a12 12 0 008.2 11.4c.6.1.8-.2.8-.6v-2.1c-3.3.7-4-1.6-4-1.6-.5-1.3-1.3-1.6-1.3-1.6-.9-.6.1-.6.1-.6 1 .1 1.6 1 1.6 1 .9 1.5 2.4 1 3 .8.1-.7.3-1 .6-1.3-2.7-.3-5.6-1.3-5.6-6a4.7 4.7 0 011.3-3.3 4.4 4.4 0 01.1-3.3s1-.3 3.4 1.3a11.6 11.6 0 016.2 0c2.4-1.6 3.4-1.3 3.4-1.3a4.4 4.4 0 01.1 3.3 4.7 4.7 0 011.3 3.3c0 4.7-2.9 5.7-5.6 6 .3.3.6.8.6 1.7v2.6c0 .4.2.7.8.6A12 12 0 0024 12c0-6.6-5.4-12-12-12z" />
+                    </svg>
+                </a>
+
+              <!-- LinkedIn -->
+                <a href="https://www.linkedin.com/in/kota-murali-453b18286" target="_blank"
+                    rel="noopener noreferrer" class="icon">
+                    <svg viewBox="0 0 24 24">
+                        <path fill="currentColor"
+                            d="M4.98 3.5C4.98 4.88 3.87 6 2.49 6S0 4.88 0 3.5 1.11 1 2.49 1s2.49 1.12 2.49 2.5zM.24 8.98h4.5V24H.24V8.98zM8.98 8.98h4.31v2.05h.06c.6-1.13 2.07-2.31 4.27-2.31 4.57 0 5.41 3.01 5.41 6.92V24h-4.5v-7.58c0-1.81-.03-4.13-2.52-4.13-2.52 0-2.9 1.97-2.9 4v7.71h-4.5V8.98z" />
+                    </svg>
+                </a>
+
+            </div>
+        </div>
+        </div>
+    </nav>
+
+    <section id="about" class="section">
+        <div class="glass">
+            <h1 class="gradient-text">KOTA MURALI</h1>
+            <h2>.NET Full Stack Developer</h2>
+
+            <p style="margin-top:20px; line-height:1.8; color:#9ca3af; max-width:800px;">
+                I am a passionate .NET Full Stack Developer with a strong foundation in
+                ASP.NET Core, Web API, SQL Server, and C#. I enjoy building scalable,
+                secure, and high-performance backend systems that solve real-world problems.
+                <br><br>
+                As a fresher, I have developed projects like Hospital Management System, Smart Task Manager,
+                Animal Species Detection Using YOLO V8 focusing on clean architectureand efficient database
+                design. I am continuously learning and improvingmy system design skills to grow into a high
+                impact software engineer
+                .
+            </p>
+
+        </div>
+    </section>
+
+    <!-- SKILLS (6 Buttons Only) -->
+    <section id="skills" class="section">
+        <div class="glass">
+            <h2>Skills</h2>
+            <div class="button-grid">
+                <div class="button-card">C#</div>
+                <div class="button-card">OOPS</div>
+                <div class="button-card">SQL Server</div>
+                <div class="button-card">MVC</div>
+                <div class="button-card">Entity Framework</div>
+                <div class="button-card">Web API</div>
+                <div class="button-card">HTML</div>
+                <div class="button-card">CSS</div>
+                <div class="button-card">JavaScript</div>
+                <div class="button-card">Angular</div>
+            </div>
+        </div>
+        </div>
+    </section>
+
+    <!-- INTERESTS & HOBBIES -->
+    <section id="interests" class="section">
+        <div class="glass">
+            <h2>Interests & Hobbies</h2>
+            <div class="button-grid">
+                <div class="button-card">Backend Development</div>
+                <div class="button-card">Frontend Development</div>
+                <div class="button-card">Continuous Learning</div>
+                <div class="button-card">Chess</div>
+                <div class="button-card">Cricket</div>
+                <div class="button-card">Movies</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PROJECTS -->
+    <section id="projects" class="section">
+        <div class="glass">
+            <h2>Projects</h2>
+            <div class="button-grid">
+
+                <div class="button-card">
+                    <h3 style="margin-bottom:10px;">Hospital Management System</h3>
+                    <p style="font-size:14px; color:#9ca3af; line-height:1.6;">
+                        🏥 Hospital Management System
+                        A comprehensive system for managing hospital operations
+                        including patient records, appointments, doctor schedules,
+                        billing, and medical history tracking.
+                        Built with ASP.NET Core MVC and SQL Server
+                        to ensure secure and efficient transaction processing.
+                    </p>
+                </div>
+
+                <div class="button-card">
+                    <h3 style="margin-bottom:10px;">Smart Task Manager</h3>
+                    <p style="font-size:14px; color:#9ca3af; line-height:1.6;">
+                         Smart Task Manager
+                        A productivity application that helps users manage tasks, set deadlines,
+                        and track progress. Features include task categorization, reminders, and
+                        progress visualization. Built with ASP.NET Core MVC and SQL Server.
+                    </p>
+                </div>
+                <div class="button-card">
+                    <h3 style="margin-bottom:10px;">Animal Species Detection Using YOLO V8</h3>
+                    <p style="font-size:14px; color:#9ca3af; line-height:1.6;">
+                         Animal Species Detection Using YOLO V8
+                        A computer vision project that uses YOLO V8 to detect and classify animal species in images.
+                        I used Python for model training, OpenCV and NumPy for image processing, and a pre-labeled dataset 
+                        in YOLO format.For the web application, I used Django as the backend framework and HTML and CSS for
+                         the frontend.
+                        
+                    </p>
+            
+    
+                </div>
+
+
+            </div>
+        </div>
+    </section>
+
+    <!-- CERTIFICATIONS -->
+    <section id="certifications" class="section">
+        <div class="glass">
+            <h2>Certifications</h2>
+            <div class="button-grid">
+                <div class="button-card">.Net Full Stack Developeement</div>
+                <div class="button-card">Simple Learn|Skillup <br> SQL</div>
+                <div class="button-card">Talent Shine<br>Java Developement </div>
+                <div class="button-card">Black Bucks<br>Full Stack Development</div>
+
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="section">
+        <div class="glass">
+            <h2>Contact Me</h2>
+
+            <form id="contact-form" style="margin-top:30px; display:flex; flex-direction:column; gap:20px;">
+
+                <input type="text" name="from_name" placeholder="Full Name" required class="input-field">
+
+                <input type="email" name="from_email" placeholder="Email Address" required class="input-field">
+
+                <input type="tel" name="phone" placeholder="Phone Number" required class="input-field">
+
+                <input type="text" name="subject" placeholder="Subject" required class="input-field">
+
+                <textarea name="message" rows="5" placeholder="Your Message" required class="input-field"></textarea>
+
+                <button type="submit" class="submit-btn">Send Message</button>
+
+                <p id="form-status" style="margin-top:10px;"></p>
+
+            </form>
+
+        </div>
+    </section>
+
+    <footer><p>K.Murali</p></footer>
+
+    <script>
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 1000);
+        const renderer = new THREE.WebGLRenderer({ alpha: true });
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        document.body.appendChild(renderer.domElement);
+        camera.position.z = 35;
+
+        /* Stars */
+        const starGeo = new THREE.BufferGeometry();
+        const starVertices = [];
+        for (let i = 0; i < 800; i++) {
+            starVertices.push((Math.random() - 0.5) * 300);
+            starVertices.push((Math.random() - 0.5) * 300);
+            starVertices.push((Math.random() - 0.5) * 300);
+        }
+        starGeo.setAttribute("position", new THREE.Float32BufferAttribute(starVertices, 3));
+        const stars = new THREE.Points(starGeo, new THREE.PointsMaterial({ color: 0xffffff, size: 0.25 }));
+        scene.add(stars);
+
+        /* Medium Sphere */
+        const sphere = new THREE.Mesh(
+            new THREE.IcosahedronGeometry(9, 1),
+            new THREE.MeshStandardMaterial({ color: 0x3b82f6, wireframe: true })
+        );
+        sphere.position.x = 14;
+        scene.add(sphere);
+
+        const light = new THREE.AmbientLight(0xffffff, 0.6);
+        scene.add(light);
+
+        function animate() {
+            requestAnimationFrame(animate);
+            stars.rotation.y += 0.0004;
+            sphere.rotation.y += 0.003;
+            renderer.render(scene, camera);
+        }
+        animate();
+    </script>
+
+        
+
+<script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+
+<script>
+window.onload = function () {
+
+    // ✅ Your Public Key
+    emailjs.init("81uktW8BnTyHv1R-m");
+
+    const form = document.getElementById("contact-form");
+    const status = document.getElementById("form-status");
+
+    form.addEventListener("submit", function (e) {
+        e.preventDefault();
+
+        status.innerText = "Sending...";
+        status.style.color = "blue";
+
+        emailjs.sendForm(
+            "service_hsp8ivv",
+            "template_e8c9g8c",
+            this
+        )
+        .then(function () {
+            status.innerText = "Message sent successfully!";
+            status.style.color = "green";
+            form.reset();
+        })
+        .catch(function (error) {
+            console.log("FULL ERROR:", error);
+            status.innerText = "Failed to send message.";
+            status.style.color = "red";
+        });
+
+    });
+};
+</script>
+</body>
